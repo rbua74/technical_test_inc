@@ -7,9 +7,9 @@ C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\e
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\service\PaymentProcessor.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\enums\PaymentErrorType.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\implementation\PaymentProcessorImpl.java
+C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\util\JsonUtil.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\dtos\PaymentDTO.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\TechnicalTestIncApplication.java
-C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\util\JsonUtil.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\enums\PaymentType.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\adapters\client\PaymentValidatorClientImpl.java
 C:\Users\e106731\IdeaProjects\Assessments\technical_test_inc\src\main\java\com\example\technicaltestinc\dtos\PaymentErrorDTO.java

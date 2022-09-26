@@ -10,6 +10,7 @@ com\example\technicaltestinc\ports\repository\PaymentsRepository.class
 com\example\technicaltestinc\TechnicalTestIncApplication.class
 com\example\technicaltestinc\entities\Account.class
 com\example\technicaltestinc\entities\Payment.class
+com\example\technicaltestinc\util\JsonUtil.class
 com\example\technicaltestinc\adapters\client\PaymentLogsClientImpl.class
 com\example\technicaltestinc\adapters\client\PaymentValidatorClientImpl.class
 com\example\technicaltestinc\ports\client\PaymentValidatorClient.class
@@ -17,6 +18,5 @@ com\example\technicaltestinc\dtos\PaymentErrorDTO.class
 com\example\technicaltestinc\dtos\PaymentDTO$PaymentDTOBuilder.class
 com\example\technicaltestinc\dtos\PaymentDTO.class
 com\example\technicaltestinc\implementation\PaymentProcessorImpl.class
-util\JsonUtil.class
 com\example\technicaltestinc\enums\PaymentType.class
 com\example\technicaltestinc\service\PaymentProcessor.class

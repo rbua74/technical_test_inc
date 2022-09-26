@@ -2,6 +2,7 @@ package com.example.technicaltestinc.adapters.client;
 
 import com.example.technicaltestinc.dtos.PaymentDTO;
 import com.example.technicaltestinc.enums.PaymentType;
+import com.example.technicaltestinc.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
-import com.example.technicaltestinc.util.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
