@@ -20,7 +20,7 @@ public class KafkaConfiguration {
 
 	public static final String GROUP_ID = "payment";
 	public static final String GROUP_JSON = "group_json";
-	public static final String KAFKA_CONNECTION = "127.0.0.1:9092";
+	public static final String KAFKA_CONNECTION = "127.0.0.1:29092";
 
 	@Bean
 	public ConsumerFactory<String, String> consumerFactory() {

@@ -24,7 +24,6 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 
 	public static final String ONLINE = "online";
 	public static final String OFFLINE = "offline";
-	public static final String USER_KAFKA_LISTENER_FACTORY = "userKafkaListenerFactory";
 	public static final String PAYMENT_IS_NOT_VALID = "Payment is not valid";
 	public static final String ACCOUNT_IS_NOT_VALID = "Account is not valid";
 
@@ -44,14 +43,14 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 	private ModelMapper modelMapper;
 
 	@Override
-	@KafkaListener(topics = ONLINE, containerFactory = USER_KAFKA_LISTENER_FACTORY)
+	@KafkaListener(topics = ONLINE)
 	public void processOnlinePayment(@NotNull PaymentDTO payment) {
 		if (isValid(payment))
 			persist(payment);
 	}
 
 	@Override
-	@KafkaListener(topics = OFFLINE, containerFactory = USER_KAFKA_LISTENER_FACTORY)
+	@KafkaListener(topics = OFFLINE)
 	public void processOfflinePayment(@NotNull PaymentDTO payment) {
 		persist(payment);
 	}

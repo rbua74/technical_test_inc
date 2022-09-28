@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,7 @@ public class Account {
 	private String email;
 
 	@Column(name = "birhtdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime birthdate;
 
 	@Column(name = "last_payment_date", nullable = false)

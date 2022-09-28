@@ -18,14 +18,6 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class SpringConfiguration {
 
-	@Value("${spring.datasource.driver-class-name}")
-	private String springDataSourceDriver;
-	@Value("${spring.datasource.url}")
-	private String springDataSourceUrl;
-	@Value("${spring.datasource.username}")
-	private String springDataSourceUsername;
-	@Value("${spring.datasource.password}")
-	private String springDataSourcePassword;
 
 	@Bean
 	public RestTemplate restTemplate() {
@@ -41,23 +33,6 @@ public class SpringConfiguration {
 		return new ModelMapper();
 	}
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(dataSource());
-		em.setPackagesToScan("com.example.technicaltestinc");
-		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		em.setJpaVendorAdapter(vendorAdapter);
-		return em;
-	}
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(springDataSourceDriver);
-		dataSource.setUrl(springDataSourceUrl);
-		dataSource.setUsername(springDataSourceUsername);
-		dataSource.setPassword(springDataSourcePassword);
-		return dataSource;
-	}
+
 }
