@@ -8,6 +8,10 @@ import com.jayway.jsonpath.Option;
 
 public class JsonUtil {
 
+	private JsonUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static String retrieveValueFromPath(String json, String path) {
 		if (!doesPathExist(json, path)) {
 			return null;

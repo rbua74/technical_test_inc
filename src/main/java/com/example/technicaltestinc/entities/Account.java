@@ -21,7 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class Account {
 
 	@Id
@@ -32,14 +32,14 @@ public class Account {
 	@Column(name = "email", length = 65)
 	private String email;
 
-	@Column(name = "birhtdate")
+	@Column(name = "birthdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime birthdate;
 
-	@Column(name = "last_payment_date", nullable = false)
-	private String lastPaymentDate;
+	@Column(name = "last_payment_date")
+	private Timestamp lastPaymentDate;
 
-	@Column(name = "created_at", nullable = false)
+	@Column(name = "created_on")
 	private Timestamp createdAt;
 
 

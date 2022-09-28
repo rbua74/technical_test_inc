@@ -5,8 +5,6 @@ Ysrc/test/java/com/example/technicaltestinc/adapters/client/PaymentLogsClientImp
 ^src/test/java/com/example/technicaltestinc/adapters/client/PaymentValidatorClientImplTest.java,d\8\d8e1cc01cc786643f03b592842e3e317338262aa
 €
 Psrc/test/java/com/example/technicaltestinc/TechnicalTestIncApplicationTests.java,e\4\e497ce54aeca3184e394c003307fae24a6470a86
-x
-Hsrc/main/java/com/example/technicaltestinc/service/PaymentProcessor.java,7\1\712c43e655606fe7537da9e4608d1d5e0c203978
 ‡
 Wsrc/test/java/com/example/technicaltestinc/implementation/PaymentProcessorImplTest.java,8\1\81f5e89e6ede7b8de766a3489fa4087b90f9cc15
 Š
@@ -24,11 +22,11 @@ Ksrc/main/java/com/example/technicaltestinc/TechnicalTestIncApplication.java,3\
 Ssrc/main/java/com/example/technicaltestinc/ports/repository/PaymentsRepository.java,8\e\8ea4bbde0e8ab62e966f76626bf392459d061262
 €
 Psrc/main/java/com/example/technicaltestinc/configuration/KafkaConfiguration.java,7\d\7d479e03c3d8fd6e439acb3cde77680ecdd4906f
-ƒ
-Ssrc/main/java/com/example/technicaltestinc/implementation/PaymentProcessorImpl.java,6\7\67e88034522cec69ffbd6d6edd99096fc90acceb
 p
 @src/main/java/com/example/technicaltestinc/entities/Account.java,4\9\49b4ff49e85b1ea5a60a265bc6039d4435f54007
 B
 docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+o
+?src/main/java/com/example/technicaltestinc/dtos/PaymentDTO.java,0\8\0819f5f329675ea2d4290d78e376a0c1eea925ab
+x
+Hsrc/main/java/com/example/technicaltestinc/service/PaymentProcessor.java,7\1\712c43e655606fe7537da9e4608d1d5e0c203978

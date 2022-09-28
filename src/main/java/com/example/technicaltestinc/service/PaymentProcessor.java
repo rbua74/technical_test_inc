@@ -1,10 +1,10 @@
 package com.example.technicaltestinc.service;
 
-import com.example.technicaltestinc.dtos.PaymentDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface PaymentProcessor {
 
-	void processOnlinePayment(PaymentDTO payment);
+	void processOnlinePayment(String payment) throws JsonProcessingException;
 
-	void processOfflinePayment(PaymentDTO payment);
+	void processOfflinePayment(String payment) throws JsonProcessingException;
 }

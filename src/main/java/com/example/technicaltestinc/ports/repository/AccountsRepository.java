@@ -9,6 +9,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AccountsRepository extends JpaRepository<Account, Integer> {
 
-//	@Query("FROM Account where accountId = :accountId")
-//	Account getAccountDetailsById(@Param("accountId") String email);
 }

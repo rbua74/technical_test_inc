@@ -10,14 +10,18 @@ import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import com.example.technicaltestinc.ports.repository.AccountsRepository;
 import com.example.technicaltestinc.ports.repository.PaymentsRepository;
 import com.example.technicaltestinc.service.PaymentProcessor;
-import com.sun.istack.NotNull;
-import org.modelmapper.ModelMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static com.example.technicaltestinc.util.ModelMapperUtil.map;
+import static com.example.technicaltestinc.util.ObjectParserUtil.toPaymentDTO;
 
 @Service
 public class PaymentProcessorImpl implements PaymentProcessor {
@@ -40,30 +44,32 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 	private PaymentLogsClient paymentLogsClient;
 
 	@Autowired
-	private ModelMapper modelMapper;
+	private ObjectMapper objectMapper;
 
 	@Override
 	@KafkaListener(topics = ONLINE)
-	public void processOnlinePayment(@NotNull PaymentDTO payment) {
-		if (isValid(payment))
-			persist(payment);
+	public void processOnlinePayment(String payment) throws JsonProcessingException {
+		if (isValid(toPaymentDTO(payment, objectMapper)))
+			persist(toPaymentDTO(payment, objectMapper));
 	}
 
 	@Override
 	@KafkaListener(topics = OFFLINE)
-	public void processOfflinePayment(@NotNull PaymentDTO payment) {
-		persist(payment);
+	public void processOfflinePayment(String payment) throws JsonProcessingException {
+		persist(toPaymentDTO(payment, objectMapper));
 	}
+
 
 	private void persist(PaymentDTO paymentDTO) {
 		Account account = retrieveAccount(paymentDTO);
 		if (ONLINE.equals(paymentDTO.getPaymentType())) {
 			if (account == null) return;
-			account.setLastPaymentDate(LocalDateTime.now().toString());
+			account.setLastPaymentDate(Timestamp.valueOf(LocalDateTime.now()));
 			accountsRepository.save(account);
 		}
-		Payment payment = modelMapper.map(paymentDTO, Payment.class);
+		Payment payment = map(paymentDTO);
 		payment.setAccount(account);
+		payment.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		paymentsRepository.save(payment);
 
 	}

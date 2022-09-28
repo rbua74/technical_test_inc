@@ -33,7 +33,7 @@ public class Payment {
 	private Account account;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "payment_type")
+	@Column(name = "payment_type", nullable = false)
 	private PaymentType paymentType;
 
 	@Column(name = "credit_card")
@@ -42,7 +42,7 @@ public class Payment {
 	@Column(name = "amount", nullable = false)
 	private int amount;
 
-	@Column(name = "created_at", nullable = false)
+	@Column(name = "created_on")
 	private Timestamp createdAt;
 
 }

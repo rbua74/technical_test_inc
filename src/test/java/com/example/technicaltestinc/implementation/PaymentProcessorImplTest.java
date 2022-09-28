@@ -9,6 +9,8 @@ import com.example.technicaltestinc.ports.client.PaymentLogsClient;
 import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import com.example.technicaltestinc.ports.repository.AccountsRepository;
 import com.example.technicaltestinc.ports.repository.PaymentsRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +18,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
@@ -52,22 +55,25 @@ class PaymentProcessorImplTest {
 	private PaymentLogsClient paymentLogsClient;
 
 	@Spy
+	private ObjectMapper objectMapper;
+
+	@Spy
 	private ModelMapper modelMapper;
 
 	@Captor
 	private ArgumentCaptor<PaymentErrorDTO> paymentErrorDTOArgumentCaptor;
 
 	@Before
-	void setup() {
-
-
+	public void setup() throws JsonProcessingException {
+		Mockito.doCallRealMethod().when(objectMapper).writeValueAsString(any());
 	}
 
 	@Test
-	void when_offline_valid_payment_returns_success() {
+	void when_offline_valid_payment_returns_success() throws JsonProcessingException {
 
 		// given
 		PaymentDTO paymentDTO = aPaymentDTO();
+		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
 
 		Account account = anAccount();
 		assert account != null;
@@ -78,7 +84,7 @@ class PaymentProcessorImplTest {
 		when(accountsRepository.findById(123)).thenReturn(optional);
 
 		// when
-		paymentProcessor.processOnlinePayment(paymentDTO);
+		paymentProcessor.processOnlinePayment(paymentAsString);
 
 		// then
 		verify(paymentValidator).validate(paymentDTO);
@@ -89,11 +95,12 @@ class PaymentProcessorImplTest {
 	}
 
 	@Test
-	void when_offline_valid_payment_validation_is_not_called() {
+	void when_offline_valid_payment_validation_is_not_called() throws JsonProcessingException {
 
 		// given
 		PaymentDTO paymentDTO = aPaymentDTO();
 		paymentDTO.setPaymentType(PaymentType.OFFLINE.label);
+		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
 
 		Account account = anAccount();
 		assert account != null;
@@ -104,7 +111,7 @@ class PaymentProcessorImplTest {
 		when(accountsRepository.findById(123)).thenReturn(optional);
 
 		// when
-		paymentProcessor.processOfflinePayment(paymentDTO);
+		paymentProcessor.processOfflinePayment(paymentAsString);
 
 		// then
 		verify(paymentValidator, times(0)).validate(paymentDTO);
@@ -112,15 +119,17 @@ class PaymentProcessorImplTest {
 	}
 
 	@Test
-	void when_invalid_online_payment_validation_log_is_sent() {
+	void when_invalid_online_payment_validation_log_is_sent() throws JsonProcessingException {
 
 		// given
 		PaymentDTO paymentDTO = aPaymentDTO();
+		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
+
 
 		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST));
 
 		// when
-		paymentProcessor.processOnlinePayment(paymentDTO);
+		paymentProcessor.processOnlinePayment(paymentAsString);
 
 		// then
 		verify(paymentLogsClient, times(1)).logError(paymentErrorDTOArgumentCaptor.capture());
@@ -131,16 +140,18 @@ class PaymentProcessorImplTest {
 	}
 
 	@Test
-	void when_not_found_account_online_payment_validation_log_is_sent() {
+	void when_not_found_account_online_payment_validation_log_is_sent() throws JsonProcessingException {
 
 		// given
 		PaymentDTO paymentDTO = aPaymentDTO();
+		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
+
 
 		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
 		when(accountsRepository.findById(123)).thenReturn(null);
 
 		// when
-		paymentProcessor.processOnlinePayment(paymentDTO);
+		paymentProcessor.processOnlinePayment(paymentAsString);
 
 		// then
 		verify(paymentLogsClient, times(1)).logError(paymentErrorDTOArgumentCaptor.capture());
@@ -153,7 +164,7 @@ class PaymentProcessorImplTest {
 	private Account anAccount() {
 		return Account.builder()
 				.accountId(123)
-				.lastPaymentDate("01/09/22")
+				.lastPaymentDate(Timestamp.valueOf("01/09/22"))
 				.createdAt(Timestamp.valueOf(LocalDateTime.now().minusDays(10)))
 				.email("hello@you.com")
 				.build();

@@ -10,4 +10,9 @@ public enum PaymentType {
 		this.label = label;
 	}
 
+	@Override
+	public String toString() {
+		return this.name();
+	}
+
 }
