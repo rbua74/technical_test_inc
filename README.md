@@ -12,7 +12,7 @@ In case there is an account linked to the payment (for online there should be on
 - Logs can be read in the console as well as the tables in the provided postgres database (dockerized). With the browser we can also press the button for logged errors.
 
 ## :memo: Notes
-Some commands to use:
+Some commands to use (git-bash)
 - docker-compose up -d
 - $ winpty docker exec -it b7aa325473c1 bash 
 - root@b7aa325473c1:/# psql -U tech payments
