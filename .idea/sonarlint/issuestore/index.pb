@@ -1,10 +1,6 @@
 
 â
 Ysrc/test/java/com/example/technicaltestinc/adapters/client/PaymentLogsClientImplTest.java,5\9\59d0e99fc4bb63804e80e9f95d4571653e7f8405
-é
-^src/test/java/com/example/technicaltestinc/adapters/client/PaymentValidatorClientImplTest.java,d\8\d8e1cc01cc786643f03b592842e3e317338262aa
-Ä
-Psrc/test/java/com/example/technicaltestinc/TechnicalTestIncApplicationTests.java,e\4\e497ce54aeca3184e394c003307fae24a6470a86
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 Å
@@ -12,8 +8,6 @@ Qsrc/main/java/com/example/technicaltestinc/configuration/SpringConfiguration.ja
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-{
-Ksrc/main/java/com/example/technicaltestinc/TechnicalTestIncApplication.java,3\4\344f8a1938b4b66b32c9a0366056938480f90c94
 É
 Ssrc/main/java/com/example/technicaltestinc/ports/repository/PaymentsRepository.java,8\e\8ea4bbde0e8ab62e966f76626bf392459d061262
 Ä

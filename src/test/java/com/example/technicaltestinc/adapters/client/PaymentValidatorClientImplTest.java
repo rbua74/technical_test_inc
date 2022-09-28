@@ -61,6 +61,8 @@ class PaymentValidatorClientImplTest {
 				.amount(300).creditCard("1234-5678")
 				.build();
 
+		String payload = new ObjectMapper().writeValueAsString(payment);
+
 		ResponseEntity<String> restResponse = new ResponseEntity<>("Successful", HttpStatus.OK);
 		Mockito.doReturn(restResponse).when(restTemplate).exchange(
 				urlArgumentCaptor.capture(),
@@ -69,7 +71,7 @@ class PaymentValidatorClientImplTest {
 				eq(String.class));
 
 		// when
-		ResponseEntity<String> actualResponse = paymentValidatorClient.validate(payment);
+		ResponseEntity<String> actualResponse = paymentValidatorClient.validate(payload);
 
 		// then
 		assertEquals("Successful", actualResponse.getBody());
@@ -77,15 +79,15 @@ class PaymentValidatorClientImplTest {
 		assertEquals("http://localhost:9000/payment", urlArgumentCaptor.getValue());
 		assertEquals(HttpMethod.POST, httpMethodArgumentCaptor.getValue());
 		assertEquals("300",
-				JsonUtil.retrieveValueFromPath(objectMapper.writeValueAsString(httpEntityArgumentCaptor.getValue().getBody()), "$.amount"));
+				JsonUtil.retrieveValueFromPath(httpEntityArgumentCaptor.getValue().getBody(), "$.amount"));
 		assertEquals("a_payment_id",
-				JsonUtil.retrieveValueFromPath(objectMapper.writeValueAsString(httpEntityArgumentCaptor.getValue().getBody()), "$.payment_id"));
+				JsonUtil.retrieveValueFromPath(httpEntityArgumentCaptor.getValue().getBody(), "$.payment_id"));
 		assertEquals("an_account_id",
-				JsonUtil.retrieveValueFromPath(objectMapper.writeValueAsString(httpEntityArgumentCaptor.getValue().getBody()), "$.account_id"));
+				JsonUtil.retrieveValueFromPath(httpEntityArgumentCaptor.getValue().getBody(), "$.account_id"));
 		assertEquals("1234-5678",
-				JsonUtil.retrieveValueFromPath(objectMapper.writeValueAsString(httpEntityArgumentCaptor.getValue().getBody()), "$.credit_card"));
+				JsonUtil.retrieveValueFromPath(httpEntityArgumentCaptor.getValue().getBody(), "$.credit_card"));
 		assertEquals("online",
-				JsonUtil.retrieveValueFromPath(objectMapper.writeValueAsString(httpEntityArgumentCaptor.getValue().getBody()), "$.payment_type"));
+				JsonUtil.retrieveValueFromPath(httpEntityArgumentCaptor.getValue().getBody(), "$.payment_type"));
 
 
 	}

@@ -9,8 +9,6 @@ import com.example.technicaltestinc.ports.client.PaymentLogsClient;
 import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import com.example.technicaltestinc.ports.repository.AccountsRepository;
 import com.example.technicaltestinc.ports.repository.PaymentsRepository;
-import com.example.technicaltestinc.util.ModelMapperUtil;
-import com.example.technicaltestinc.util.ObjectParserUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -23,7 +21,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +30,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -59,9 +55,6 @@ class PaymentProcessorImplTest {
 	@Spy
 	private ObjectMapper objectMapper;
 
-	@Spy
-	private ModelMapper modelMapper;
-
 	@Captor
 	private ArgumentCaptor<PaymentErrorDTO> paymentErrorDTOArgumentCaptor;
 
@@ -81,14 +74,14 @@ class PaymentProcessorImplTest {
 		assert account != null;
 		Optional<Account> optional = Optional.of(account);
 
-		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
+		when(paymentValidator.validate(paymentAsString)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
 		when(accountsRepository.findById(123)).thenReturn(optional);
 
 		// when
 		paymentProcessor.processOnlinePayment(paymentAsString);
 
 		// then
-		verify(paymentValidator).validate(paymentDTO);
+		verify(paymentValidator).validate(paymentAsString);
 		verify(accountsRepository).findById(123);
 		verify(accountsRepository).save(account);
 		verify(paymentsRepository).save(any(Payment.class));
@@ -113,7 +106,7 @@ class PaymentProcessorImplTest {
 		paymentProcessor.processOfflinePayment(paymentAsString);
 
 		// then
-		verify(paymentValidator, times(0)).validate(paymentDTO);
+		verify(paymentValidator, times(0)).validate(paymentAsString);
 
 	}
 
@@ -125,7 +118,7 @@ class PaymentProcessorImplTest {
 		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
 
 
-		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST));
+		when(paymentValidator.validate(paymentAsString)).thenReturn(new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST));
 
 		// when
 		paymentProcessor.processOnlinePayment(paymentAsString);
@@ -146,7 +139,7 @@ class PaymentProcessorImplTest {
 		String paymentAsString = objectMapper.writeValueAsString(paymentDTO);
 
 
-		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
+		when(paymentValidator.validate(paymentAsString)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
 		when(accountsRepository.findById(123)).thenReturn(null);
 
 		// when

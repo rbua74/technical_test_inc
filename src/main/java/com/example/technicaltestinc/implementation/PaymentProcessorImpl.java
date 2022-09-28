@@ -10,6 +10,7 @@ import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import com.example.technicaltestinc.ports.repository.AccountsRepository;
 import com.example.technicaltestinc.ports.repository.PaymentsRepository;
 import com.example.technicaltestinc.service.PaymentProcessor;
+import com.example.technicaltestinc.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 	public static final String OFFLINE = "offline";
 	public static final String PAYMENT_IS_NOT_VALID = "Payment is not valid";
 	public static final String ACCOUNT_IS_NOT_VALID = "Account is not valid";
+	public static final String PAYMENT_ID_PATH = "$.payment_id";
 
 	@Autowired
 	private PaymentValidatorClient paymentValidator;
@@ -49,7 +51,7 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 	@Override
 	@KafkaListener(topics = ONLINE)
 	public void processOnlinePayment(String payment) throws JsonProcessingException {
-		if (isValid(toPaymentDTO(payment, objectMapper)))
+		if (isValid(payment))
 			persist(toPaymentDTO(payment, objectMapper));
 	}
 
@@ -89,11 +91,11 @@ public class PaymentProcessorImpl implements PaymentProcessor {
 		}
 	}
 
-	private boolean isValid(PaymentDTO payment) {
+	private boolean isValid(String payment) {
 		boolean valid = paymentValidator.validate(payment).getStatusCode().is2xxSuccessful();
 		if (!valid) {
 			paymentLogsClient.logError(PaymentErrorDTO.builder()
-					.paymentId(payment.getPaymentId())
+					.paymentId(JsonUtil.retrieveValueFromPath(payment, PAYMENT_ID_PATH))
 					.errorType(PaymentErrorType.NETWORK.label)
 					.errorDescription(PAYMENT_IS_NOT_VALID)
 					.build());

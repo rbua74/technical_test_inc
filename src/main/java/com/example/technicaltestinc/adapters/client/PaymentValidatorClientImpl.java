@@ -1,6 +1,5 @@
 package com.example.technicaltestinc.adapters.client;
 
-import com.example.technicaltestinc.dtos.PaymentDTO;
 import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,8 +22,8 @@ public class PaymentValidatorClientImpl implements PaymentValidatorClient {
 
 
 	@Override
-	public ResponseEntity<String> validate(PaymentDTO payment) {
-		HttpEntity<PaymentDTO> entity = new HttpEntity<>(payment, buildHeaders());
+	public ResponseEntity<String> validate(String payment) {
+		HttpEntity<String> entity = new HttpEntity<>(payment, buildHeaders());
 		return restTemplate.exchange(
 				validatorUrl,
 				HttpMethod.POST,
