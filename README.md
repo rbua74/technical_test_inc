@@ -6,13 +6,13 @@ In case there is an account linked to the payment (for online there should be on
 
 ## :computer: How to execute
 - After cloning project just run _mvn clean install_ in the terminal.
-- Ensure the environment is ready (provided _docker-compose.yml_ file is executed with _up_ command).
+- Ensure the environment is ready (provided _docker-compose.yml_ file under "environment" folder is executed with _up_ command using Git Bash).
 - Start the spring boot application (by running TechnicalTestIncApplication.java, _ie_.)
 - Access localhost:9000 in a browser and press START TEST button.
 - Logs can be read in the console as well as the tables in the provided postgres database (dockerized). With the browser we can also press the button for logged errors.
 
 ## :memo: Notes
-Some commands to use (git-bash)
+Some commands to use (Git Bash)
 - docker-compose up -d
 - $ winpty docker exec -it b7aa325473c1 bash 
 - root@b7aa325473c1:/# psql -U tech payments
