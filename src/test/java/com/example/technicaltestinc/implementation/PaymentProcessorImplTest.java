@@ -9,6 +9,8 @@ import com.example.technicaltestinc.ports.client.PaymentLogsClient;
 import com.example.technicaltestinc.ports.client.PaymentValidatorClient;
 import com.example.technicaltestinc.ports.repository.AccountsRepository;
 import com.example.technicaltestinc.ports.repository.PaymentsRepository;
+import com.example.technicaltestinc.util.ModelMapperUtil;
+import com.example.technicaltestinc.util.ObjectParserUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -79,7 +81,6 @@ class PaymentProcessorImplTest {
 		assert account != null;
 		Optional<Account> optional = Optional.of(account);
 
-		doCallRealMethod().when(modelMapper).map(paymentDTO, Payment.class);
 		when(paymentValidator.validate(paymentDTO)).thenReturn(new ResponseEntity<>("Successful", HttpStatus.OK));
 		when(accountsRepository.findById(123)).thenReturn(optional);
 
@@ -105,8 +106,6 @@ class PaymentProcessorImplTest {
 		Account account = anAccount();
 		assert account != null;
 		Optional<Account> optional = Optional.of(account);
-
-		doCallRealMethod().when(modelMapper).map(paymentDTO, Payment.class);
 
 		when(accountsRepository.findById(123)).thenReturn(optional);
 
@@ -164,7 +163,7 @@ class PaymentProcessorImplTest {
 	private Account anAccount() {
 		return Account.builder()
 				.accountId(123)
-				.lastPaymentDate(Timestamp.valueOf("01/09/22"))
+				.lastPaymentDate(Timestamp.valueOf("2022-09-01 07:25:330000"))
 				.createdAt(Timestamp.valueOf(LocalDateTime.now().minusDays(10)))
 				.email("hello@you.com")
 				.build();

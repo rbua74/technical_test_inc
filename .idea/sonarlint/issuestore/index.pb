@@ -5,10 +5,6 @@ Ysrc/test/java/com/example/technicaltestinc/adapters/client/PaymentLogsClientImp
 ^src/test/java/com/example/technicaltestinc/adapters/client/PaymentValidatorClientImplTest.java,d\8\d8e1cc01cc786643f03b592842e3e317338262aa
 Ä
 Psrc/test/java/com/example/technicaltestinc/TechnicalTestIncApplicationTests.java,e\4\e497ce54aeca3184e394c003307fae24a6470a86
-á
-Wsrc/test/java/com/example/technicaltestinc/implementation/PaymentProcessorImplTest.java,8\1\81f5e89e6ede7b8de766a3489fa4087b90f9cc15
-ä
-Zsrc/main/java/com/example/technicaltestinc/adapters/client/PaymentValidatorClientImpl.java,e\e\ee7c4058c88f9819bb8769e635d6f616efe2a804
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 Å
@@ -26,7 +22,5 @@ p
 @src/main/java/com/example/technicaltestinc/entities/Account.java,4\9\49b4ff49e85b1ea5a60a265bc6039d4435f54007
 B
 docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
-o
-?src/main/java/com/example/technicaltestinc/dtos/PaymentDTO.java,0\8\0819f5f329675ea2d4290d78e376a0c1eea925ab
 x
 Hsrc/main/java/com/example/technicaltestinc/service/PaymentProcessor.java,7\1\712c43e655606fe7537da9e4608d1d5e0c203978
