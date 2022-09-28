@@ -13,9 +13,9 @@ In case there is an account linked to the payment (for online there should be on
 
 ## :memo: Notes
 Some commands to use:
-docker-compose up -d
-$ winpty docker exec -it b7aa325473c1 bash 
-root@b7aa325473c1:/# psql -U tech payments
+- docker-compose up -d
+- $ winpty docker exec -it b7aa325473c1 bash 
+- root@b7aa325473c1:/# psql -U tech payments
 
 ## :pushpin: Things to improve
 If I'd had more time:
